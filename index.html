@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Tutorial: Hello Dojo!</title>
+</head>
+<body>
+    <h1 id="greeting">Dojo practice</h1>
+    <h2 id="message"default message></h2>
+    <!-- load Dojo -->
+    <script>
+        var dojoConfig = {
+            async: true,
+            packages: [{
+                name: "demo",
+                location: location.pathname.replace(/\/[^/]*$/, '' + '/demo')
+            }]
+        }
+    </script>
+    <script src="dojo.js"></script>
+
+    <script>
+        require([
+            'dojo/dom',
+            'dojo/dom-construct'
+        ],function (dom, dConstruct){
+            var messageNode = dom.byId('message');
+            dConstruct.place('<em> This is a customized <strong>message</strong></em>', messageNode);
+        })
+    </script>
+
+    <script>
+        require([
+            'demo/myModule'
+        ], function (myModule){
+
+            setTimeout(function(){
+                myModule.setText('message', 'This is from my module!');
+            }, 3000)
+
+            setTimeout(function() {
+                myModule.restoreText('message')
+            }, 6000);
+        })
+    </script>
+
+
+</body>
+</html>
